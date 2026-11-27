@@ -1,0 +1,17 @@
+# Test profile: runs against the separate healthdekho_test database. Values below are test-only.
+
+spring:
+  datasource:
+    url: ${TEST_DB_URL:jdbc:postgresql://localhost:5432/healthdekho_test}
+    username: ${TEST_DB_USERNAME:healthdekho}
+    password: ${TEST_DB_PASSWORD:${DB_PASSWORD:}}
+  flyway:
+    placeholders:
+      demo_password: test-password
+
+app:
+  clock:
+    # Business "today" is fixed so date rules give the same result on every run.
+    fixed-date: 2026-11-25
+  ai:
+    timeout: 2s

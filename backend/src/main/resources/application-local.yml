@@ -1,0 +1,10 @@
+# Local development profile. Start with scripts/local-env.sh (mac/Linux) or scripts/local-env.ps1 (Windows).
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/healthdekho}
+    username: ${DB_USERNAME:healthdekho}
+    password: ${DB_PASSWORD}
+
+server:
+  port: 8080

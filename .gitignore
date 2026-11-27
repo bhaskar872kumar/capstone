@@ -1,0 +1,21 @@
+# Backend build output
+backend/target/
+# React build copied into the JAR by scripts/build-release.*
+backend/src/main/resources/static/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Local settings and secrets: never commit
+scripts/local-env.sh
+scripts/local-env.ps1
+.env
+*.env
+
+# IDE / OS
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db

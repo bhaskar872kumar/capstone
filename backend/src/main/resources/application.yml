@@ -1,0 +1,59 @@
+# Shared settings. Environment-specific values live in application-local.yml / application-aws.yml.
+# Secrets are never written here: they come from environment variables.
+
+spring:
+  application:
+    name: healthdekho
+  profiles:
+    default: local
+  jpa:
+    open-in-view: false
+    # Flyway owns the schema (db/migration). Hibernate never changes it.
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    placeholders:
+      # Password given to the three sample customers in V2__seed_data.sql (stored only as a BCrypt hash).
+      demo_password: ${DEMO_PASSWORD}
+  ai:
+    bedrock:
+      aws:
+        region: ${AWS_REGION:us-east-1}
+        # No keys here: the AWS SDK default chain is used
+        # (local: `aws configure` profile, AWS: the instance role).
+      converse:
+        chat:
+          options:
+            model: ${BEDROCK_MODEL_ID:amazon.nova-lite-v1:0}
+            temperature: 0.2
+            max-tokens: 800
+
+server:
+  error:
+    include-stacktrace: never
+    include-message: never
+  servlet:
+    session:
+      # Login session (Spring Security keeps the logged-in customer in the HTTP session).
+      timeout: 30m
+      cookie:
+        http-only: true
+        same-site: lax
+
+app:
+  ai:
+    model-name: ${BEDROCK_MODEL_ID:amazon.nova-lite-v1:0}
+    model-version: ${BEDROCK_MODEL_VERSION:bedrock-converse}
+    prompt-version: rec-v1
+    timeout: 15s
+    max-items: 3
+
+logging:
+  level:
+    com.healthdekho: INFO

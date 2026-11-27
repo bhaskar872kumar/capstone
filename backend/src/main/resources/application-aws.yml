@@ -1,0 +1,15 @@
+# AWS profile (Elastic Beanstalk). Every value comes from the environment properties of the Beanstalk environment.
+
+server:
+  port: ${SERVER_PORT:5000}
+
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+logging:
+  structured:
+    format:
+      console: ecs
